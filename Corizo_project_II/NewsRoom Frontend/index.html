@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="/NewsRoom Frontend/main2.css">
+   
+    <title>Bulletin News</title>
+    
+</head>
+<body style="background-color: #252830; background-image: url('/Completed/assets/images/back.jpg');">
+  <style>
+    marquee{
+      width: 70%;
+      padding: 10px 0;
+      background-color: aqua;
+    }
+  </style>
+    <nav class="navbar bg-light">
+      <form class="container-fluid justify-content-start">
+        <a href="/Completed/index.html">
+          <button class="btn btn-outline-success me-2" type="button"
+        onclick="wondow.location.href='';"
+         >Home</button>
+        </a>
+        <a href="/Completed/sign.in.html">
+          <button class="btn btn-sm btn-outline-secondary" type="button">LOG_OUT</button>
+        </a>
+      </form>
+    </nav>
+<div class="container m-5">
+    <div class="d-flex justify-content-center mb-3"></div>
+    <div class="col-12 d-flex justify-content-center">
+        <div class="input-group mb-3" style="width: 50%;transform: scale(1.3);">
+            <input type="text" class="form-control shadow" id="keyword"
+            placeholder="What you looking for ?" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <button type="button" class="btn btn-success" type="button"
+            onclick="getnews()" id="button-addon2">Search</button>
+          </div>
+    </div>
+   
+</div>
+      <div class="container">
+        
+        <div class="loader" id="lode_hide">
+
+        </div>
+        <div class="posts">
+
+        </div>
+
+        
+        
+        </div>
+        
+          
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+
+    <script>
+      
+      
+     
+      getnews();
+      function getnews(){
+        $(".posts").text("");
+       var keyword = $("#keyword").val();
+
+       if(keyword==''){
+         keyword="latest";
+       }
+        var url="https://newsapi.org/v2/everything?q="+keyword+"&apiKey=3017837c894a448c8a4cf30e65fe596d";
+
+        $("#lode_hide").show();
+          $.get(url,  (response)=>{
+        $("#lode_hide").hide();
+
+
+        console.log(response.articles[0]);
+        for(i=0;i<response.articles.length;i++){
+          var html = `<div class="card m-3 shadow">
+          <div class="row g-0" >
+            <div class="col-md-4" >
+              <img src="${response.articles[i].urlToImage}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">${response.articles[i].title}</h5>
+                <p class="card-text">${response.articles[i].content}</p>
+                <p class="card-text"><small class="text-muted">${response.articles[i].publishedAt} | ${response.articles[i].source.name} - ${response.articles[i].author}</small></p>
+            <a href="${response.articles[i].url}" target="_blank" >
+              <button type="button" class="btn btn-primary btn-lg">Read more-></button></a>
+            <p></p>
+              </div>
+            </div>
+          </div>
+        </div>`;
+        $(".posts").append(html);
+
+
+        }
+        
+        
+      });
+      }
+
+      getnews1();
+      function getnews1(){
+        $(".posts").text("");
+       var keyword = $("#keyword").val();
+
+       if(keyword==''){
+         keyword="latest";
+       }
+        var url="https://newsapi.org/v2/top-headlines?country=us&apiKey=3017837c894a448c8a4cf30e65fe596d";
+
+        $("#lode_hide").show();
+          $.get(url,  (response)=>{
+        $("#lode_hide").hide();
+
+
+        console.log(response.articles[0]);
+        for(i=0;i<response.articles.length;i++){
+          var html = `<div class="card m-3 shadow">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="${response.articles[i].urlToImage}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">${response.articles[i].title}</h5>
+                <p class="card-text">${response.articles[i].content}</p>
+                <p class="card-text"><small class="text-muted">${response.articles[i].publishedAt} | ${response.articles[i].source.name} - ${response.articles[i].author}</small></p>
+                <a href="${response.articles[i].url}" target="_blank" >
+              <button type="button" class="btn btn-primary btn-lg">Read more-></button></a>
+            <p></p>
+              </div>
+            </div>
+          </div>
+        </div>`;
+        $(".posts").append(html);
+
+
+        }
+        
+        
+      });
+      }
+
+      getnews2();
+      function getnews2(){
+        $(".posts").text("");
+       var keyword = $("#keyword").val();
+
+       if(keyword==''){
+         keyword="latest";
+       }
+        var url=" https://newsapi.org/v2/top-headlines?country=us&apiKey=API_KEY";
+        $("#lode_hide").show();
+          $.get(url,  (response)=>{
+        $("#lode_hide").hide();
+        console.log(response.articles[0]);
+        for(i=0;i<response.articles.length;i++){
+          var html = `<div class="card m-3 shadow">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img src="${response.articles[i].urlToImage}" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">${response.articles[i].title}</h5>
+                <p class="card-text">${response.articles[i].content}</p>
+                <p class="card-text"><small class="text-muted">${response.articles[i].publishedAt} | ${response.articles[i].source.name} - ${response.articles[i].author}</small></p>
+                <a href="${response.articles[i].url}" target="_blank" >
+              <button type="button" class="btn btn-primary btn-lg">Read more-></button></a>
+            <p></p>
+              </div>
+            </div>
+          </div>
+        </div>`;
+        $(".posts").append(html);
+        }
+      });
+      } 
+    </script>
+</body>
+</html>
